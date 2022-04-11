@@ -7,8 +7,8 @@ export default function Settings() {
     const loading = useSelector(state => state.settings.loading);
     const category = useSelector(state => state.settings.question_category);
     const difficulty = useSelector(state => state.settings.question_diffictulty);
-    const questionType = useSelector(state => state.settings.question_type)
-    const questionNumber = useSelector(state => state.settings.question_number);
+    const type = useSelector(state => state.settings.question_type)
+    const number = useSelector(state => state.settings.question_number);
 
     //updates state
     const dispatch = useDispatch();
@@ -34,6 +34,7 @@ export default function Settings() {
     }, [setSettings, dispatch]);
 
     //when the category is chosen, event occurs
+    //type of action is defined within the payload object due to switch function interpretation
     const handleCategory = e => {
         dispatch({
             type: 'CHANGE_CATEGORY',
@@ -86,7 +87,7 @@ export default function Settings() {
             </div>
             <div>
                 <h2>Select Question Type:</h2>
-                    <select value={questionType} onChange={handleType}>
+                    <select value={type} onChange={handleType}>
                         <option value="" key="type-0">All</option>
                         <option value="multiple" key="type-1">Multiple Choice</option>
                         <option value="boolean" key="type-2">True/False</option>
@@ -94,7 +95,7 @@ export default function Settings() {
             </div>
 			<div>
                 <h2>Amount of Questions:</h2>
-                    <input value={questionNumber} onChange={handleQuestionNumber} />
+                    <input value={number} onChange={handleNumber} />
             </div>
         </div>      
         );
