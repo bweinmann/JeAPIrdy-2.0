@@ -1,5 +1,5 @@
 import React from 'react'
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 
 export default function Fetch(props) {
 
@@ -9,6 +9,22 @@ export default function Fetch(props) {
     const number = useSelector(state => state.settings.question_number)
     const type = useSelector(state => state.settings.question_type)
     const index = useSelector(state => state.index)
+
+    const dispatch = useDispatch();
+
+    const setLoading = (value) => {
+        dispatch({
+            type: 'CHANGE_LOADING',
+            loading: value,
+        })
+    }
+
+    const setQuestions = value => {
+        dispatch({
+            type:'SET_QUESTIONS',
+            questions: value
+        })
+    }
 
     const handleRequest = async () => {
 
@@ -26,7 +42,8 @@ export default function Fetch(props) {
         await fetch(apiURL)
         .then((res) => res.json())
         .then((response) => {
-            //question state to be set
+            setQuestions(response.results)
+            setLoading(false)
         })
     }
   return (
