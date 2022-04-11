@@ -82,7 +82,7 @@ export default function Question() {
         return `correct`
       }
   
-      if (option === correct) {
+      if (option === selectedAnswer) {
         return `selected`
       }
     }

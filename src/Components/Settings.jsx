@@ -1,4 +1,6 @@
 import { useEffect, useState } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
+import Fetch from './Fetch'
 
 export default function Settings() {
     //storing API data
@@ -56,7 +58,7 @@ export default function Settings() {
           })
         }
     
-    const handleQuestionNumber = e => {
+    const handleNumber = e => {
         dispatch({
             type: 'CHANGE_NUMBER',
             question_number: e.target.value,
@@ -65,6 +67,7 @@ export default function Settings() {
     
      if(!loading) {  return (
         <div>
+            <h1>JeAPIrdy</h1>
             <div>
                 <h2>Choose a Category:</h2>
                     <select value={category} onChange={handleCategory}>
@@ -94,9 +97,10 @@ export default function Settings() {
                     </select>
             </div>
 			<div>
-                <h2>Amount of Questions:</h2>
+                <h2>Number of Questions:</h2>
                     <input value={number} onChange={handleNumber} />
             </div>
+            <Fetch text="Begin!" />
         </div>      
         );
      } else {
