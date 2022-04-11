@@ -5,6 +5,8 @@ export default function Question() {
 
   //retrieve data from store
   const [settings, setSettings] = useState([])
+  const [selected, setSelected] = useState(false)
+  const [correct, setCorrect] = useState(null)
   const score = useSelector(state => state.score)
   const questions = useSelector(state => state.questions)
   const index = useSelector(state => state.index)
@@ -26,9 +28,23 @@ export default function Question() {
     let answers = [...question.incorrect]
     answer.splice(getNum(question.incorrect.length), 0, question.correct)
     setSettings(answers)
-  }, [question])
+    }, [question])
 
-  return (
-    <div>Question</div>
+    const handleSelection = (e) => {}
+      return (
+      <div>
+        <p>Question {index + 1}</p>
+        <h3>{question.question}</h3>
+        <ul>
+          {settings.map((setting, i) => (
+            <li key={i} onClick={handleSelection}>
+              {setting}
+            </li>
+          ))}
+        </ul>
+        <div>
+          Score: {score} / {questions.length}
+        </div>
+      </div>
   )
 }
