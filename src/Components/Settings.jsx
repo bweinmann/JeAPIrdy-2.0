@@ -1,39 +1,67 @@
 import { useEffect, useState } from 'react'
 
 export default function Settings() {
-
-    const [loading, setLoading] = useSelector(state => state.settings.loading);
     //storing API data
     const [settings, setSettings] = useState(null);
-    //second hook for category
-    const [category, setCategory] = useState("");
+    //replaced with selector for redux actions
+    const loading = useSelector(state => state.settings.loading);
+    const category = useSelector(state => state.settings.question_category);
+    const difficulty = useSelector(state => state.settings.question_diffictulty);
+    const questionType = useSelector(state => state.settings.question_type)
+    const questionNumber = useSelector(state => state.settings.question_number);
 
-    const [difficulty, setDifficulty] = useState("");
-    const [questionNumber, setQuestionNumber] = useState(50);
+    //updates state
+    const dispatch = useDispatch();
 
     useEffect(() => {
         const apiURL = `https://opentdb.com/api_category.php`;
-        setLoading(true)
+
+        const handleLoading = (value) => {
+            dispatch({
+                type: 'CHANGE_LOADING',
+                LOADING: value,
+            })
+        }
+
+        handleLoading(true)
+
         fetch(apiURL)
             .then((res) => res.json())
             .then((res) => {
-                setLoading(false);
+                handleLoading(false);
                 setSettings(res.trivia_categories);
             });
-    }, [setSettings]);
+    }, [setSettings, dispatch]);
+
     //when the category is chosen, event occurs
     const handleCategory = e => {
-        setCategory(e.target.value)
-    }
+        dispatch({
+            type: 'CHANGE_CATEGORY',
+            question_category: e.target.value,
+          })
+        }
+    
     const handleType = e => {
-        setType(e.target.value)
-    }
+        dispatch({
+            type: 'CHANGE_TYPE',
+            question_type: e.target.value,
+          })
+        }
+    
     const handleDifficulty = e => {
-        setDifficulty(e.target.value)
-    }
+        dispatch({
+            type: 'CHANGE_DIFFICULTY',
+            question_diffictulty: e.target.value,
+          })
+        }
+    
     const handleQuestionNumber = e => {
-        setQuestionNumber(e.target.value)
-    }
+        dispatch({
+            type: 'CHANGE_NUMBER',
+            question_number: e.target.value,
+          })
+        }
+    
      if(!loading) {  return (
         <div>
             <div>
