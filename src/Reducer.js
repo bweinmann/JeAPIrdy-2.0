@@ -8,4 +8,50 @@ const initState = {
     }
 }
 
-export default Reducer
+export default function Reducer (state = initState, action) {
+    switch (action.type) {
+            case "CHANGE_LOADING":
+                return {
+                    ...state, 
+                    settings: {
+                        ...state.settings,
+                        loading: action.value
+                  }
+                }
+            case "CHANGE_CATEGORY":
+                return {
+                  ...state,
+                  options: {
+                    ...state.options,
+                    question_category: action.value
+                  }
+                }
+              case "CHANGE_DIFFICULTY":
+                return {
+                  ...state,
+                  options: {
+                    ...state.options,
+                    question_difficulty: action.value
+                  }
+                }
+              case "CHANGE_TYPE":
+                return {
+                  ...state,
+                  options: {
+                    ...state.options,
+                    question_type: action.value
+                  }
+                }
+              
+              case "CHANGE_AMOUNT":
+                return {
+                  ...state,
+                  options: {
+                    ...state.options,
+                    amount_of_questions: action.value
+                  }
+                }
+              default:
+                return state
+        }
+    }
