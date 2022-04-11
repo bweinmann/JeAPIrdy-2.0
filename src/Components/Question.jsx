@@ -1,5 +1,6 @@
 import React from 'react'
-import { useState, useEffect, useSelector, useDispatch } from 'react-redux'
+import { useState, useEffect, } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
 
 const decoded = function (html) {
   const content = document.createElement('content')
@@ -10,13 +11,12 @@ const decoded = function (html) {
 export default function Question() {
 
   //retrieve data from store
+  const [questions, setQuestions] = useState([])
   const [settings, setSettings] = useState([])
   const [selected, setSelected] = useState(false)
-  const [correct, setCorrect] = useState(null)
+  const [selectedAnswer, setSelectedAnswer] = useState(null)
   
   const score = useSelector(state => state.score)
-  const questions = useSelector(state => state.questions)
-  
   const encoded = useSelector(state => state.questions)
 
   useEffect(() => {
@@ -35,7 +35,7 @@ export default function Question() {
   const dispatch = useDispatch()
 
   const question = question[index]
-  const answer = question.correct
+  const answer = question && question.correct_answer
 
   const getNum = max => {
     return Math.floor(Math.random()*Math.floor(max));
@@ -46,14 +46,15 @@ export default function Question() {
     if (!question) {
       return;
     }
-    let answers = [...question.incorrect]
-    answer.splice(getNum(question.incorrect.length), 0, question.correct)
+    let answers = [...question.incorrect_answer]
+    answers.splice(getNum(question.incorrect_answer.length), 0, question.correct_answer)
     setSettings(answers)
     }, [question])
 
     const handleSelection = (e) => {
       setSelected(true)
-      setCorrect(e.target.textContent)
+      setSelectedAnswer(e.target.textContent)
+      
       if (e.target.textContent === answer) {
         dispatch({
           type: 'SET_SCORE',
@@ -63,7 +64,7 @@ export default function Question() {
       if (index + 1 <= questions.length) {
         setTimeout(() => {
           setSelected(false)
-          setCorrect(null)
+          setSelectedAnswer(null)
           dispatch({
             type: 'SET_INDEX',
             index: index + 1,
@@ -73,7 +74,7 @@ export default function Question() {
     }
 
     const getClass = option => {
-      if (!answerSelected) {
+      if (!selected) {
         return ``;
       }
   
@@ -81,7 +82,7 @@ export default function Question() {
         return `correct`
       }
   
-      if (option === selectedAnswer) {
+      if (option === correct) {
         return `selected`
       }
     }
