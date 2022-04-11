@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 
 export default function Settings() {
 
+    const [loading, setLoading] = useState(false);
     //storing API data
     const [settings, setSettings] = useState(null);
     //second hook for category
@@ -21,19 +22,22 @@ export default function Settings() {
         setCategory(e.target.value)
     }
     
-  return (
-    <div>
-        <div>
-            <h2>Choose a Category:</h2>
-            <select value={category} onChange={handleCategory}>
-            <option>All</option>
-            {settings && settings.map((setting) => (
-                <option value={setting} key={setting.id}>
-                    {setting.name}
-                </option>
-            ))}
-            </select>
-        </div>
-    </div>
-  );
+     if(!loading) {  return (
+            <div>
+                <div>
+                    <h2>Choose a Category:</h2>
+                    <select value={category} onChange={handleCategory}>
+                    <option>All</option>
+                    {settings && settings.map((setting) => (
+                        <option value={setting} key={setting.id}>
+                            {setting.name}
+                        </option>
+                    ))}
+                    </select>
+                </div>
+            </div>
+        );
+     } else {
+         <p>Loading...</p>
+     }                   
 }
