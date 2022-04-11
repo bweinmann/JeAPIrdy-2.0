@@ -34,7 +34,7 @@ export default function Question() {
   const index = useSelector(state => state.index)
   const dispatch = useDispatch()
 
-  const question = question[index]
+  const question = questions[index]
   const answer = question && question.correct_answer
 
   const getNum = max => {
