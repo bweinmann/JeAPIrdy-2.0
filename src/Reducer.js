@@ -5,8 +5,10 @@ const initState = {
         question_difficulty: ``,
         question_type: ``,
         question_number: 50,
-    }
-    questions: []
+    },
+    questions: [],
+    index: 0,
+    score: 0
 }
 
 export default function Reducer (state = initState, action) {
@@ -58,7 +60,18 @@ export default function Reducer (state = initState, action) {
                         ...state,
                         questions: action.questions,
                     }
-                    
+
+                case 'SET_INDEX':
+                    return {
+                        ...state,
+                        questions: action.index,
+                    }
+                case 'SET_SCORE':
+                    return {
+                        ...state,
+                        questions: action.score,
+                    }
+
               default:
                 return state
         }
