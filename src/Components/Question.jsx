@@ -30,7 +30,26 @@ export default function Question() {
     setSettings(answers)
     }, [question])
 
-    const handleSelection = (e) => {}
+    const handleSelection = (e) => {
+      setSelected(true)
+      setCorrect(e.target.textContent)
+      if (e.target.textContent === answer) {
+        dispatch({
+          type: 'SET_SCORE',
+          score: score + 1,
+        })
+      }
+      if (index + 1 <= questions.length) {
+        setTimeout(() => {
+          setSelected(false)
+          setCorrect(null)
+          dispatch({
+            type: 'SET_INDEX',
+            index: index + 1,
+          })
+        }, 2500)
+      }
+    }
       return (
       <div>
         <p>Question {index + 1}</p>
