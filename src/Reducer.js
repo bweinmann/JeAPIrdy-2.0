@@ -21,34 +21,34 @@ export default function Reducer (state = initState, action) {
             case "CHANGE_CATEGORY":
                 return {
                   ...state,
-                  options: {
-                    ...state.options,
+                  settings: {
+                    ...state.settings,
                     question_category: action.value
                   }
                 }
               case "CHANGE_DIFFICULTY":
                 return {
                   ...state,
-                  options: {
-                    ...state.options,
+                  settings: {
+                    ...state.settings,
                     question_difficulty: action.value
                   }
                 }
               case "CHANGE_TYPE":
                 return {
                   ...state,
-                  options: {
-                    ...state.options,
+                  settings: {
+                    ...state.settings,
                     question_type: action.value
                   }
                 }
               
-              case "CHANGE_AMOUNT":
+              case "CHANGE_NUMBER":
                 return {
                   ...state,
-                  options: {
-                    ...state.options,
-                    amount_of_questions: action.value
+                  settings: {
+                    ...state.settings,
+                    question_number: action.value
                   }
                 }
               default:

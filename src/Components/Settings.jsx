@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 
 export default function Settings() {
 
-    const [loading, setLoading] = useState(false);
+    const [loading, setLoading] = useSelector(state => state.settings.loading);
     //storing API data
     const [settings, setSettings] = useState(null);
     //second hook for category
