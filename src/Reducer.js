@@ -6,6 +6,7 @@ const initState = {
         question_type: ``,
         question_number: 50,
     }
+    questions: []
 }
 
 export default function Reducer (state = initState, action) {
@@ -51,6 +52,13 @@ export default function Reducer (state = initState, action) {
                     question_number: action.value
                   }
                 }
+
+                case 'SET_QUESTIONS':
+                    return {
+                        ...state,
+                        questions: action.questions,
+                    }
+                    
               default:
                 return state
         }
