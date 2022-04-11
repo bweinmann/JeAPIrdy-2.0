@@ -71,13 +71,32 @@ export default function Question() {
         }, 2500)
       }
     }
+
+    const getClass = option => {
+      if (!answerSelected) {
+        return ``;
+      }
+  
+      if (option === answer) {
+        return `correct`
+      }
+  
+      if (option === selectedAnswer) {
+        return `selected`
+      }
+    }
+  
+    if (!question) {
+      return <div>Loading</div>
+    }
+  
       return (
       <div>
         <p>Question {index + 1}</p>
         <h3>{question.question}</h3>
         <ul>
           {settings.map((setting, i) => (
-            <li key={i} onClick={handleSelection}>
+            <li key={i} onClick={handleSelection} className={getClass(setting)}>
               {setting}
             </li>
           ))}
