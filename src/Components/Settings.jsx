@@ -2,15 +2,15 @@ import { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import Fetch from './Fetch'
 
-export default function Settings() {
+ function Settings() {
     //storing API data
     const [settings, setSettings] = useState(null);
     //replaced with selector for redux actions
     const loading = useSelector(state => state.settings.loading);
     const category = useSelector(state => state.settings.question_category);
-    const difficulty = useSelector(state => state.settings.question_diffictulty);
+    const difficulty = useSelector(state => state.settings.question_difficulty);
     const type = useSelector(state => state.settings.question_type)
-    const number = useSelector(state => state.settings.question_number);
+    const amount = useSelector(state => state.settings.question_amount);
 
     //updates state
     const dispatch = useDispatch();
@@ -54,14 +54,14 @@ export default function Settings() {
     const handleDifficulty = e => {
         dispatch({
             type: 'CHANGE_DIFFICULTY',
-            question_diffictulty: e.target.value,
+            question_difficulty: e.target.value,
           })
         }
     
-    const handleNumber = e => {
+    const handleAmount = e => {
         dispatch({
-            type: 'CHANGE_NUMBER',
-            question_number: e.target.value,
+            type: 'CHANGE_AMOUNT',
+            question_amount: e.target.value,
           })
         }
     
@@ -98,12 +98,13 @@ export default function Settings() {
             </div>
 			<div>
                 <h2>Number of Questions:</h2>
-                    <input value={number} onChange={handleNumber} />
+                    <input value={amount} onChange={handleAmount} />
             </div>
             <Fetch text="Begin!" />
         </div>      
         );
-     } else {
-         <p>Loading...</p>
-     }                   
-}
+     } 
+        <p>Loading...</p>
+}                   
+
+export default Settings

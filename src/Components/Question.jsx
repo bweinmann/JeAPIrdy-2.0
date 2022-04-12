@@ -25,7 +25,7 @@ export default function Question() {
       ...q,
       question: decoded(q.question),
       correct_answer: decoded(q.correct_answer),
-      incorrect_answer: q.incorrect_answer.map(a => decoded(a))
+      incorrect_answers: q.incorrect_answers.map(a => decoded(a))
     }
   })
   setQuestions(decodedQuestions)
@@ -46,8 +46,8 @@ export default function Question() {
     if (!question) {
       return;
     }
-    let answers = [...question.incorrect_answer]
-    answers.splice(getNum(question.incorrect_answer.length), 0, question.correct_answer)
+    let answers = [...question.incorrect_answers]
+    answers.splice(getNum(question.incorrect_answers.length), 0, question.correct_answer)
     setSettings(answers)
     }, [question])
 

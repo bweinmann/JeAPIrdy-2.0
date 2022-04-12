@@ -4,11 +4,11 @@ const initState = {
         question_category: ``,
         question_difficulty: ``,
         question_type: ``,
-        question_number: 50,
+        question_amount: 50,
     },
     questions: [],
     index: 0,
-    score: 0
+    score: 0,
 }
 
 export default function Reducer (state = initState, action) {
@@ -18,15 +18,15 @@ export default function Reducer (state = initState, action) {
                     ...state, 
                     settings: {
                         ...state.settings,
-                        loading: action.value
-                  }
+                        loading: action.loading
+                  },
                 }
             case "CHANGE_CATEGORY":
                 return {
                   ...state,
                   settings: {
                     ...state.settings,
-                    question_category: action.value
+                    question_category: action.question_category
                   }
                 }
               case "CHANGE_DIFFICULTY":
@@ -34,7 +34,7 @@ export default function Reducer (state = initState, action) {
                   ...state,
                   settings: {
                     ...state.settings,
-                    question_difficulty: action.value
+                    question_difficulty: action.question_difficulty
                   }
                 }
               case "CHANGE_TYPE":
@@ -42,16 +42,16 @@ export default function Reducer (state = initState, action) {
                   ...state,
                   settings: {
                     ...state.settings,
-                    question_type: action.value
+                    question_type: action.question_type
                   }
                 }
               
-              case "CHANGE_NUMBER":
+              case "CHANGE_AMOUNT":
                 return {
                   ...state,
                   settings: {
                     ...state.settings,
-                    question_number: action.value
+                    question_number: action.question_amount
                   }
                 }
 

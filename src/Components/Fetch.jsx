@@ -6,9 +6,9 @@ export default function Fetch(props) {
     //construct settings for the API query
     const difficulty = useSelector(state => state.settings.question_difficulty)
     const category = useSelector(state => state.settings.question_category)
-    const number = useSelector(state => state.settings.question_number)
+    const amount = useSelector(state => state.settings.question_amount)
     const type = useSelector(state => state.settings.question_type)
-    const index = useSelector(state => state.index)
+    const indexOf = useSelector(state => state.index)
 
     const dispatch = useDispatch();
 
@@ -28,7 +28,7 @@ export default function Fetch(props) {
 
     const handleRequest = async () => {
 
-        let apiURL = `https://opentdb.com/api.php?amount=${number}`;
+        let apiURL = `https://opentdb.com/api.php?amount=${amount}`;
 
         if (category.length) {
             apiURL = apiURL.concat(`&category=${category}`)
@@ -39,12 +39,27 @@ export default function Fetch(props) {
         if (type.length) {
             apiURL = apiURL.concat(`&type=${type}`)
         }
+
+        setLoading(true)
+
         await fetch(apiURL)
         .then((res) => res.json())
         .then((response) => {
             setQuestions(response.results)
             setLoading(false)
         })
+
+        if (indexOf > 0) {
+            dispatch ({
+                type: 'SET_INDEX',
+                index: 0,
+            })
+
+            dispatch ({
+                type: 'SET_SCORE',
+                score: 0,
+            })
+        }
     }
   return (
     <button onClick={handleRequest}>{props.text}</button>
